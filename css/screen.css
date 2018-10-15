@@ -1,36 +1,36 @@
 /*------------------------------------*\
 #FONTS
 \*------------------------------------*/
-
 /*------------------------------------*\
 #Variables
 \*------------------------------------*/
-
 :root {
     /* colors */
-
+    --color-front: #0F3557;
+    --color-back: #CCE7FF;
     /* opacity */
-
     /* transitions */
 }
 
 /*------------------------------------*\
 #GENERIC
 \*------------------------------------*/
-
 /*
     Generic: Page
     ---
     Global page styles + universal box-sizing:
 */
-
-html {
+html, body {
+    height: 100%;
     font-size: 16px;
     line-height: 1.5;
-    font-family: Helvetica, arial, sans-serif;
+    font-family: "Work Sans", Helvetica, arial, sans-serif;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: var(--color-back);
+    color: var(--color-front);
+    font-feature-settings: "zero"1;
 }
 
 *,
@@ -45,7 +45,6 @@ html {
 *
 * Customize the background color to match your design.
 */
-
 ::-moz-selection {
     background: red;
     color: white;
@@ -61,13 +60,11 @@ html {
 /*------------------------------------*\
 #Elements
 \*------------------------------------*/
-
 /*
 Elements: Images
 ---
 Default markup for images to make them responsive
 */
-
 img {
     max-width: 100%;
     vertical-align: top;
@@ -78,7 +75,6 @@ img {
     ---
     Default markup for typographic elements
 */
-
 h1,
 h2,
 h3 {
@@ -191,13 +187,11 @@ input::placeholder {
 /*------------------------------------*\
 #OBJECTS
 \*------------------------------------*/
-
 /*
     Object: Button reset
     ---
     Small button reset object
 */
-
 .o-button-reset {
     border: none;
     margin: 0;
@@ -205,18 +199,14 @@ input::placeholder {
     width: auto;
     overflow: visible;
     background: transparent;
-
     /* inherit font & color from ancestor */
     color: inherit;
     font: inherit;
-
     /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
     line-height: normal;
-
     /* Corrects font smoothing for webkit */
     -webkit-font-smoothing: inherit;
     -moz-osx-font-smoothing: inherit;
-
     /* Corrects inability to style clickable `input` types in iOS */
     -webkit-appearance: none;
 }
@@ -226,7 +216,6 @@ input::placeholder {
     ---
     Accessibly hide any element
 */
-
 .o-hide-accessible {
     position: absolute;
     width: 1px;
@@ -241,15 +230,15 @@ input::placeholder {
 /*------------------------------------*\
 #COMPONENTS
 \*------------------------------------*/
-
 /*
     Component: Logo
     ---
     Website main logo
 */
-
 .c-logo {
-
+    display: flex;
+    align-items: center;
+    font-size: 16px;
 }
 
 /*
@@ -257,13 +246,16 @@ input::placeholder {
     ---
     The sun
 */
-
 .c-sun {
-
+    display: flex;
+    align-items: center;
+    height: 22px;
+    width: 22px;
+    fill: var(--color-front);
 }
 
 .c-logo .c-sun {
-
+    margin-right: 8px;
 }
 
 /*
@@ -271,44 +263,101 @@ input::placeholder {
     ---
     Main app wrapper
 */
+.c-app {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 400px;
+    margin: 0 auto;
+}
+
+.c-app__summary {
+    font-size: 28px;
+    line-height: 40px;
+}
 
 /*
     Component: Horizon
     ---
     Horizon with sun visualisation
 */
+.c-horizon__sky-wrapper {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    padding-top: 22px;
+    padding-right: 40px;
+}
+
+.c-horizon__sky {
+    position: relative;
+    height: 100%;
+}
+
+.c-horizon__sun::before {
+    content: attr(data-time);
+    display: block;
+    margin-bottom: 8px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.c-horizon__sun {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    transform: translateY(22px);
+}
+
+.c-sun {}
+
+.c-horizon__line {
+    border-top: 1px solid var(--color-front);
+    display: flex;
+    justify-content: space-between;
+}
+
+.c-horizon__time {
+    padding-top: 8px;
+    padding-bottom: 32px;
+    font-size: 12px;
+    line-height: 14px;
+}
 
 /*------------------------------------*\
 #UTILITIES
 \*------------------------------------*/
-
 /*
     Utilities: Mute
     Mute with opacity
 */
+.u-muted {
+    opacity: 0.6;
+}
 
 /*------------------------------------*\
 #STATES
 \*------------------------------------*/
-
 /*
     Change the theme using CSS vars.
 */
-
 /* Night version: just switch the light and dark vars */
-
 /*------------------------------------*\
 #MEDIA
 \*------------------------------------*/
-
 /*
     Print styles.
     ---
     Inlined to avoid the additional HTTP request:
     http://www.phpied.com/delay-loading-your-print-css/
 */
-
 @media print {
+
     *,
     *:before,
     *:after {
@@ -319,16 +368,20 @@ input::placeholder {
         box-shadow: none !important;
         text-shadow: none !important;
     }
+
     a,
     a:visited {
         text-decoration: underline;
     }
+
     a[href]:after {
-        content: " (" attr(href) ")";
+        content: " ("attr(href) ")";
     }
+
     abbr[title]:after {
-        content: " (" attr(title) ")";
+        content: " ("attr(title) ")";
     }
+
     /*
     * Don't show links that are fragment identifiers,
     * or use the `javascript:` pseudo protocol
@@ -337,14 +390,17 @@ input::placeholder {
     a[href^="javascript:"]:after {
         content: "";
     }
+
     pre {
         white-space: pre-wrap !important;
     }
+
     pre,
     blockquote {
         border: 1px solid #999;
         page-break-inside: avoid;
     }
+
     /*
     * Printing Tables:
     * http://css-discuss.incutio.com/wiki/Printing_Tables
@@ -352,16 +408,19 @@ input::placeholder {
     thead {
         display: table-header-group;
     }
+
     tr,
     img {
         page-break-inside: avoid;
     }
+
     p,
     h2,
     h3 {
         orphans: 3;
         widows: 3;
     }
+
     h2,
     h3 {
         page-break-after: avoid;
